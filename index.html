@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truxt.ai: US Outbound Playbook | Ajinkya Vajurkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #050816;
+    --bg2: #0B1020;
+    --card: #111827;
+    --card2: #1E293B;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --blue: #3B82F6;
+    --blue2: #60A5FA;
+    --purple: #8B5CF6;
+    --purple2: #A855F7;
+    --cyan: #06B6D4;
+    --text: #FFFFFF;
+    --text2: #94A3B8;
+    --text3: #64748B;
+    --green: #10B981;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(5,8,22,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo-mark {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+  }
+  .nav-logo-text { font-size: 15px; font-weight: 600; color: var(--text); }
+  .nav-logo-text span { color: var(--blue2); }
+  .nav-tag {
+    font-size: 11px; padding: 3px 10px; border-radius: 20px;
+    background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25);
+    color: var(--blue2); font-weight: 500; letter-spacing: 0.3px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a {
+    font-size: 13px; color: var(--text2); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .btn-primary {
+    padding: 7px 18px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    background: linear-gradient(135deg, #3B82F6, #6366F1);
+    color: #fff; border: none; cursor: pointer; text-decoration: none;
+    transition: opacity 0.2s, transform 0.1s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-secondary {
+    padding: 7px 18px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    background: transparent; color: var(--text2);
+    border: 1px solid var(--border2); cursor: pointer; text-decoration: none;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+  /* LAYOUT */
+  main { padding-top: 56px; }
+  .section { padding: 80px 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-sm { padding: 60px 2rem; max-width: 1100px; margin: 0 auto; }
+
+  /* HERO */
+  .hero {
+    min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 2rem 80px;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 500; color: var(--blue2);
+    letter-spacing: 0.8px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .hero h1 {
+    font-size: clamp(38px, 5.5vw, 68px);
+    font-weight: 700; line-height: 1.08; letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(90deg, #60A5FA, #A855F7, #06B6D4);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 18px; color: var(--text2); max-width: 580px;
+    line-height: 1.65; margin-bottom: 36px; font-weight: 400;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 60px; }
+  .btn-lg { padding: 12px 28px; font-size: 15px; border-radius: 10px; }
+
+  /* METRICS ROW */
+  .metrics-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .metric-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 18px;
+    transition: border-color 0.2s;
+  }
+  .metric-card:hover { border-color: rgba(59,130,246,0.3); }
+  .metric-value {
+    font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #60A5FA, #A855F7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .metric-label { font-size: 12px; color: var(--text3); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+  .metric-sub { font-size: 12px; color: var(--text2); margin-top: 6px; }
+
+  /* SECTION HEADER */
+  .sec-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--blue2); margin-bottom: 10px;
+  }
+  .sec-title {
+    font-size: clamp(26px, 3vw, 36px); font-weight: 700;
+    letter-spacing: -0.8px; margin-bottom: 12px; line-height: 1.15;
+  }
+  .sec-sub {
+    font-size: 16px; color: var(--text2); max-width: 600px; line-height: 1.65;
+  }
+  .sec-header { margin-bottom: 40px; }
+
+  /* INSIGHT CARD (callout) */
+  .insight-card {
+    background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.06));
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 16px; padding: 28px 32px; margin-bottom: 48px;
+  }
+  .insight-card p { font-size: 16px; color: var(--text2); line-height: 1.7; }
+  .insight-card strong { color: var(--text); font-weight: 600; }
+
+  /* SEGMENT CARDS */
+  .segments-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .seg-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; position: relative; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .seg-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .seg-card.priority::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+  }
+  .seg-card.p2::before {
+    background: linear-gradient(90deg, #06B6D4, #3B82F6);
+  }
+  .seg-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .seg-badge.p1 { background: rgba(59,130,246,0.12); color: var(--blue2); border: 1px solid rgba(59,130,246,0.2); }
+  .seg-badge.p2 { background: rgba(6,182,212,0.1); color: var(--cyan); border: 1px solid rgba(6,182,212,0.2); }
+  .seg-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .seg-body { font-size: 13px; color: var(--text2); line-height: 1.65; }
+  .seg-bullets { margin-top: 12px; list-style: none; }
+  .seg-bullets li {
+    font-size: 13px; color: var(--text2); padding: 4px 0;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .seg-bullets li::before { content: '→'; color: var(--blue); font-size: 12px; margin-top: 2px; flex-shrink: 0; }
+
+  /* PROSPECT TABLE */
+  .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: var(--card2); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.8px; text-transform: uppercase; color: var(--text3);
+    padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  tbody td { padding: 14px 16px; font-size: 13px; color: var(--text2); vertical-align: top; }
+  td.co { font-weight: 600; color: var(--text); font-size: 14px; }
+  .tier-badge {
+    display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px;
+    border-radius: 20px; letter-spacing: 0.3px;
+  }
+  .tier-a { background: rgba(16,185,129,0.1); color: #34D399; border: 1px solid rgba(16,185,129,0.2); }
+  .tier-b { background: rgba(59,130,246,0.1); color: var(--blue2); border: 1px solid rgba(59,130,246,0.2); }
+
+  /* SEQUENCE */
+  .seq-list { display: flex; flex-direction: column; gap: 0; }
+  .seq-item {
+    display: grid; grid-template-columns: 80px 100px 1fr;
+    align-items: start; gap: 0; position: relative;
+  }
+  .seq-item:not(:last-child) .seq-line {
+    position: absolute; left: 36px; top: 44px; bottom: -8px;
+    width: 1px; background: var(--border2);
+  }
+  .seq-day {
+    padding: 20px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .seq-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--card2); border: 2px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--text2);
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .seq-dot.active { border-color: var(--blue); color: var(--blue2); background: rgba(59,130,246,0.1); }
+  .seq-day-label { font-size: 10px; color: var(--text3); margin-top: 4px; font-weight: 500; }
+  .seq-channel {
+    padding: 18px 12px 18px 0;
+    display: flex; align-items: flex-start; padding-top: 22px;
+  }
+  .ch-badge {
+    font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+    letter-spacing: 0.3px; white-space: nowrap;
+  }
+  .ch-email { background: rgba(139,92,246,0.12); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.2); }
+  .ch-linkedin { background: rgba(6,182,212,0.1); color: var(--cyan); border: 1px solid rgba(6,182,212,0.2); }
+  .seq-content {
+    padding: 16px 0 20px; border-bottom: 1px solid var(--border);
+  }
+  .seq-item:last-child .seq-content { border-bottom: none; }
+  .seq-action { font-size: 14px; color: var(--text); font-weight: 500; margin-bottom: 6px; }
+  .seq-detail { font-size: 13px; color: var(--text2); line-height: 1.65; }
+
+  /* EMAIL SAMPLE */
+  .email-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+  }
+  .email-header {
+    background: var(--card2); padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .email-dots { display: flex; gap: 6px; }
+  .email-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .email-meta { flex: 1; }
+  .email-subject { font-size: 13px; font-weight: 600; color: var(--text); }
+  .email-to { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .email-body { padding: 28px 28px; }
+  .email-body p { font-size: 14px; color: var(--text2); line-height: 1.75; margin-bottom: 14px; }
+  .email-body p:last-child { margin-bottom: 0; }
+  .email-body .highlight { color: var(--text); font-weight: 500; }
+  .email-sig { font-size: 14px; color: var(--text2); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .email-annotation {
+    background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 10px; padding: 14px 18px; margin-top: 16px;
+    font-size: 13px; color: var(--text2); line-height: 1.65;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .email-annotation::before { content: '↑'; color: var(--blue2); font-size: 14px; flex-shrink: 0; font-weight: 600; }
+
+  /* CAMPAIGN STORY */
+  .campaign-card {
+    background: var(--card);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 16px; padding: 32px; position: relative; overflow: hidden;
+  }
+  .campaign-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, #10B981, #06B6D4);
+  }
+  .campaign-card p { font-size: 15px; color: var(--text2); line-height: 1.75; margin-bottom: 14px; }
+  .campaign-card p:last-child { margin-bottom: 0; color: var(--text); font-weight: 500; }
+  .result-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2);
+    color: #34D399; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-phase {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 0; margin-bottom: 0;
+  }
+  .tl-label-wrap {
+    padding: 0 24px 32px 0; position: relative;
+  }
+  .tl-label-wrap::after {
+    content: ''; position: absolute; right: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border2);
+  }
+  .tl-phase:last-child .tl-label-wrap::after { display: none; }
+  .tl-phase-name {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--blue2); margin-bottom: 4px;
+  }
+  .tl-phase-period { font-size: 12px; color: var(--text3); }
+  .tl-items { padding: 0 0 32px 28px; position: relative; }
+  .tl-items::before {
+    content: ''; position: absolute; left: 10px; top: 8px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--blue); flex-shrink: 0;
+  }
+  .tl-item {
+    font-size: 13px; color: var(--text2); line-height: 1.65;
+    padding: 5px 0; display: flex; align-items: flex-start; gap: 8px;
+  }
+  .tl-item::before { content: '·'; color: var(--blue2); font-size: 18px; line-height: 1.2; flex-shrink: 0; }
+
+  /* KPI TABLE */
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 14px; text-align: center;
+  }
+  .kpi-metric { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 500; }
+  .kpi-row { display: flex; flex-direction: column; gap: 6px; }
+  .kpi-chip {
+    font-size: 12px; padding: 4px 0; border-radius: 6px;
+    background: rgba(255,255,255,0.03); color: var(--text2);
+  }
+  .kpi-chip.target { color: #34D399; background: rgba(16,185,129,0.08); }
+
+  /* BRINGS */
+  .brings-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .bring-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; transition: border-color 0.2s;
+  }
+  .bring-card:hover { border-color: rgba(139,92,246,0.3); }
+  .bring-icon {
+    width: 38px; height: 38px; border-radius: 10px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .bring-icon.blue { background: rgba(59,130,246,0.12); }
+  .bring-icon.purple { background: rgba(139,92,246,0.12); }
+  .bring-icon.cyan { background: rgba(6,182,212,0.1); }
+  .bring-icon.green { background: rgba(16,185,129,0.1); }
+  .bring-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .bring-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+  /* EXPAND TOGGLE */
+  .expand-toggle {
+    background: none; border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 16px;
+    font-size: 12px; color: var(--text2); cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 16px; transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .expand-toggle:hover { border-color: var(--border2); color: var(--text); }
+  .expand-content { display: none; margin-top: 16px; }
+  .expand-content.open { display: block; }
+  .expand-arrow { transition: transform 0.2s; }
+  .expand-arrow.open { transform: rotate(180deg); }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    border-top: 1px solid var(--border);
+    padding: 80px 2rem;
+    text-align: center;
+  }
+  .footer-inner { max-width: 560px; margin: 0 auto; }
+  .footer-cta h2 { font-size: 32px; font-weight: 700; letter-spacing: -0.8px; margin-bottom: 12px; }
+  .footer-cta p { font-size: 16px; color: var(--text2); margin-bottom: 32px; line-height: 1.65; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .footer-byline {
+    margin-top: 48px; font-size: 12px; color: var(--text3);
+  }
+
+  /* HERO NAV PILLS */
+  .hero-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 620px;
+  }
+  .hero-nav-pill {
+    font-size: 12px; font-weight: 500; color: var(--blue2);
+    padding: 9px 16px; border-radius: 8px;
+    border: 1px solid rgba(59,130,246,0.3);
+    text-decoration: none;
+    background: rgba(59,130,246,0.06);
+    transition: all 0.18s;
+    letter-spacing: 0.2px;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    cursor: pointer;
+  }
+  .hero-nav-pill::after {
+    content: '↗';
+    font-size: 11px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .hero-nav-pill:hover {
+    color: #fff;
+    border-color: rgba(59,130,246,0.7);
+    background: rgba(59,130,246,0.15);
+    transform: translateY(-1px);
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  @media (max-width: 768px) {
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    .segments-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .brings-grid { grid-template-columns: 1fr; }
+    .tl-phase { grid-template-columns: 1fr; }
+    .tl-label-wrap::after { display: none; }
+    .seq-item { grid-template-columns: 60px 90px 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Geometric hexagon icon -->
+      <g transform="translate(0, 2)">
+        <polygon points="12,0 22,5.5 22,16.5 12,22 2,16.5 2,5.5" stroke="white" stroke-width="1.2" fill="none"/>
+        <polygon points="12,4 18.5,7.7 18.5,15.3 12,19 5.5,15.3 5.5,7.7" stroke="white" stroke-width="0.8" fill="none"/>
+        <circle cx="12" cy="11" r="3" stroke="white" stroke-width="0.8" fill="none"/>
+        <line x1="12" y1="0" x2="12" y2="4" stroke="white" stroke-width="0.8"/>
+        <line x1="12" y1="19" x2="12" y2="22" stroke="white" stroke-width="0.8"/>
+        <line x1="22" y1="5.5" x2="18.5" y2="7.7" stroke="white" stroke-width="0.8"/>
+        <line x1="2" y1="5.5" x2="5.5" y2="7.7" stroke="white" stroke-width="0.8"/>
+        <line x1="22" y1="16.5" x2="18.5" y2="15.3" stroke="white" stroke-width="0.8"/>
+        <line x1="2" y1="16.5" x2="5.5" y2="15.3" stroke="white" stroke-width="0.8"/>
+      </g>
+      <!-- Truxt.ai wordmark -->
+      <text x="30" y="19" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="white" letter-spacing="-0.3">Truxt.ai</text>
+    </svg>
+  </div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#icp">ICP</a>
+      <a href="#sequence">Sequence</a>
+      <a href="#plan">30-day plan</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="https://www.linkedin.com/in/ajinkya-vajurkar-247a2012b/" target="_blank" class="btn-secondary">LinkedIn →</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-dot"></div>
+    US Outbound Playbook, Business Development Manager
+  </div>
+  <h1>The pipeline starts<br><span class="grad">before day one.</span></h1>
+  <p class="hero-sub">
+    This is the outbound playbook I would build at Truxt.ai: who to target, 
+    why the AI governance angle is the sharpest wedge into enterprise accounts, 
+    what the sequence looks like, and how to measure it.
+  </p>
+  <div class="hero-actions">
+    <a href="#icp" class="btn-primary btn-lg">See the playbook ↓</a>
+  </div>
+
+  <div class="hero-nav">
+    <a href="#market" class="hero-nav-pill">01 Market read</a>
+    <a href="#icp" class="hero-nav-pill">02 ICP</a>
+    <a href="#sequence" class="hero-nav-pill">03 Sequence</a>
+    <a href="#campaign" class="hero-nav-pill">04 Creative campaign</a>
+    <a href="#plan" class="hero-nav-pill">05 30-day plan</a>
+    <a href="#bring" class="hero-nav-pill">06 What I bring</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MARKET READ -->
+<section class="section" id="market">
+    <h2 class="sec-title">The wedge isn't DORA metrics.<br>It's AI governance.</h2>
+    <p class="sec-sub">Every VP Eng already has a dashboard. What they don't have is an answer to two simultaneous board-level questions.</p>
+  </div>
+
+  <div class="insight-card">
+    <p>
+      Engineering leaders at mid-market and enterprise software companies are under pressure from two directions at once. From the board: <strong>"What ROI are we getting from GitHub Copilot, Cursor, Codeium?"</strong> From security and compliance: <strong>"Are we introducing AI-generated vulnerabilities into production?"</strong>
+      <br><br>
+      Most existing platforms (LinearB, Jellyfish, DX) answer DORA metrics but have no AI governance layer. That gap is Truxt's clearest wedge. The outbound motion I'd build leads with AI governance and ROI, not deployment frequency, because governance creates urgency whereas another dashboard does not.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ICP -->
+<section class="section" id="icp">
+  <div class="sec-header">
+    <div class="sec-label">02. ICP</div>
+    <h2 class="sec-title">Three segments.<br>Two to close in 60 days.</h2>
+    <p class="sec-sub">Prioritized by likelihood to close and quality of product fit, not just size.</p>
+  </div>
+
+  <div class="segments-grid">
+    <div class="seg-card priority">
+      <div class="seg-badge p1">● Priority 1</div>
+      <div class="seg-title">Mid-market SaaS<br><span style="color:var(--text2);font-weight:400;font-size:13px">100–800 employees, US-based</span></div>
+      <ul class="seg-bullets">
+        <li>Already paying for Copilot or Cursor enterprise-wide, under pressure to justify the spend</li>
+        <li>VP Eng or Eng Director owns the tooling P&L</li>
+        <li>GitHub + Jira + CI/CD stack. Truxt integrates cleanly.</li>
+        <li>Decision cycle: 4–8 weeks, single buyer or small committee</li>
+      </ul>
+    </div>
+    <div class="seg-card priority">
+      <div class="seg-badge p1">● Priority 1</div>
+      <div class="seg-title">AI-first engineering orgs<br><span style="color:var(--text2);font-weight:400;font-size:13px">High AI code output by design</span></div>
+      <ul class="seg-bullets">
+        <li>AI-assisted development is core to their product velocity</li>
+        <li>Board is asking about AI ROI. CTO is the economic buyer.</li>
+        <li>Often lack any structured governance, which is the primary value prop</li>
+        <li>Strong urgency, fast decision timeline</li>
+      </ul>
+    </div>
+    <div class="seg-card p2">
+      <div class="seg-badge p2">◎ Priority 2</div>
+      <div class="seg-title">Enterprise DevOps teams<br><span style="color:var(--text2);font-weight:400;font-size:13px">500+ engineers, longer cycle</span></div>
+      <ul class="seg-bullets">
+        <li>Rolling out AI coding tools at scale across large eng orgs</li>
+        <li>Compliance, security, audit requirements amplify governance urgency</li>
+        <li>Longer cycle (3–6 months) but higher ACV</li>
+        <li>Start conversations now, close in Q3–Q4</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Prospect table -->
+  <div style="margin-top: 40px;">
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text)">10 named accounts I'd target in week 1</h3>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:20px">Built from Apollo + Sales Nav filters: Copilot/Cursor in tech stack, US-based, 100–1000 employees, VP Eng or CTO as title.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>AI governance angle</th>
+            <th>Buyer</th>
+            <th>Hook</th>
+            <th>Tier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="co">Rippling</td>
+            <td>Large eng org, Copilot at scale, board asking AI ROI</td>
+            <td>VP Eng / CTO</td>
+            <td>"How are you measuring ROI on AI coding tools across 200+ devs?"</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Ironclad</td>
+            <td>Legal tech, high compliance sensitivity, AI rollout ongoing</td>
+            <td>VP Eng</td>
+            <td>Compliance + AI governance is a direct fit in a regulated category</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Brex</td>
+            <td>Fintech, compliance-sensitive, Copilot users, lean eng team</td>
+            <td>VP Eng</td>
+            <td>AI-generated code in a regulated env, governance is a live concern</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Retool</td>
+            <td>Dev tools company, AI-coding heavy, governance signals to their own customers</td>
+            <td>CTO</td>
+            <td>Meta fit: how they govern AI code is a proof point for their users</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Amplitude</td>
+            <td>Data SaaS, strong eng culture, AI tooling adoption curve</td>
+            <td>Eng Director</td>
+            <td>DORA + AI governance story fits their engineering rigor</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Hex Technologies</td>
+            <td>Technical buyers, AI-forward eng team, word-of-mouth multiplier</td>
+            <td>CTO</td>
+            <td>Small but influential. If they love it, it spreads.</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Lattice</td>
+            <td>Fast-growing eng team, tools-forward culture</td>
+            <td>Eng Director</td>
+            <td>Engineering velocity + AI tooling ROI for the board</td>
+            <td><span class="tier-badge tier-a">A: Priority</span></td>
+          </tr>
+          <tr>
+            <td class="co">Notion</td>
+            <td>Large PLG product, significant eng org, known Copilot users</td>
+            <td>Platform Eng Lead</td>
+            <td>"How are you tracking AI adoption across your eng org?"</td>
+            <td><span class="tier-badge tier-b">B: Medium</span></td>
+          </tr>
+          <tr>
+            <td class="co">Figma</td>
+            <td>Significant eng integration post-acquisition, AI tooling expansion</td>
+            <td>Eng Director</td>
+            <td>AI code governance angle during a period of org complexity</td>
+            <td><span class="tier-badge tier-b">B: Medium</span></td>
+          </tr>
+          <tr>
+            <td class="co">Scale AI</td>
+            <td>AI-first by definition, massive eng org, high AI code output</td>
+            <td>Eng Director</td>
+            <td>"Who governs the AI that governs your data labeling stack?"</td>
+            <td><span class="tier-badge tier-b">B: Medium</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEQUENCE -->
+<section class="section" id="sequence">
+  <div class="sec-header">
+    <div class="sec-label">03. Outbound sequence</div>
+    <h2 class="sec-title">7-touch, 30 days.<br>Governance angle first.</h2>
+    <p class="sec-sub">Built for the engineering intelligence buyer. Leads with the AI governance angle, not DORA metrics, because governance creates urgency whereas another dashboard does not.</p>
+  </div>
+
+  <div class="seq-list">
+    <!-- Day 1 -->
+    <div class="seq-item">
+      <div class="seq-line"></div>
+      <div class="seq-day">
+        <div class="seq-dot active">1</div>
+        <div class="seq-day-label">Day 1</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-linkedin">LinkedIn</span></div>
+      <div class="seq-content">
+        <div class="seq-action">Connection request, no pitch</div>
+        <div class="seq-detail">One-line note referencing something real about their company or role. Example: "Curious how [Company] is thinking about AI code governance as Copilot adoption scales. Would love to connect."</div>
+      </div>
+    </div>
+    <!-- Day 2 -->
+    <div class="seq-item">
+      <div class="seq-line"></div>
+      <div class="seq-day">
+        <div class="seq-dot active">2</div>
+        <div class="seq-day-label">Day 2</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-email">Email 1</span></div>
+      <div class="seq-content">
+        <div class="seq-action">Cold opener, problem before product</div>
+        <div class="seq-detail">Subject: AI-generated code governance at [Company]. 2 short paragraphs. Lead with the problem (AI code proliferating faster than visibility can keep up). Truxt named in sentence 3. CTA: "Worth a quick look?"</div>
+      </div>
+    </div>
+    <!-- Day 5 -->
+    <div class="seq-item">
+      <div class="seq-line"></div>
+      <div class="seq-day">
+        <div class="seq-dot">5</div>
+        <div class="seq-day-label">Day 5</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-email">Email 2</span></div>
+      <div class="seq-content">
+        <div class="seq-action">Social proof, no ask</div>
+        <div class="seq-detail">Subject: What one VP Eng told us about Copilot ROI. 1 paragraph. One concrete outcome ("A 250-engineer team reduced AI-introduced bug rate by 40% in 8 weeks"). Pure value, no CTA.</div>
+      </div>
+    </div>
+    <!-- Day 8 -->
+    <div class="seq-item">
+      <div class="seq-line"></div>
+      <div class="seq-day">
+        <div class="seq-dot">8</div>
+        <div class="seq-day-label">Day 8</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-linkedin">LinkedIn</span></div>
+      <div class="seq-content">
+        <div class="seq-action">DM follow-up if connected</div>
+        <div class="seq-detail">2 sentences. Reference the email. Soft ask: "Did this land in the wrong inbox, or just bad timing?"</div>
+      </div>
+    </div>
+    <!-- Day 12 -->
+    <div class="seq-item">
+      <div class="seq-line"></div>
+      <div class="seq-day">
+        <div class="seq-dot">12</div>
+        <div class="seq-day-label">Day 12</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-email">Email 3</span></div>
+      <div class="seq-content">
+        <div class="seq-action">Breakup email, leave door open</div>
+        <div class="seq-detail">Subject: One question before I close this. 3 sentences max. No pressure. Specific re-entry point: "Happy to revisit when your next Copilot renewal cycle is closer."</div>
+      </div>
+    </div>
+    <!-- Day 19 -->
+    <div class="seq-item">
+      <div class="seq-line"></div>
+      <div class="seq-day">
+        <div class="seq-dot">19</div>
+        <div class="seq-day-label">Day 19</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-linkedin">LinkedIn</span></div>
+      <div class="seq-content">
+        <div class="seq-action">Soft visibility, no direct ask</div>
+        <div class="seq-detail">Engage with a post they wrote, or share a Truxt.ai insight relevant to their eng org. Keeps you visible without being pushy.</div>
+      </div>
+    </div>
+    <!-- Day 30 -->
+    <div class="seq-item">
+      <div class="seq-day">
+        <div class="seq-dot">30</div>
+        <div class="seq-day-label">Day 30</div>
+      </div>
+      <div class="seq-channel"><span class="ch-badge ch-email">Email 4</span></div>
+      <div class="seq-content" style="border-bottom:none">
+        <div class="seq-action">Re-engagement anchored to a trigger</div>
+        <div class="seq-detail">New angle, not a resend. Anchored to a trigger event: their recent job posting for a DevOps lead, a funding round, a product launch. Shows you're paying attention.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CREATIVE CAMPAIGN -->
+<section class="section" id="campaign">
+  <div class="sec-header">
+    <div class="sec-label">04. Most creative campaign</div>
+    <h2 class="sec-title">Give something useful<br>before you ask for anything.</h2>
+    <p class="sec-sub">This is the P.S. your JD asked for, and the philosophy behind why this page exists instead of a cover letter.</p>
+  </div>
+
+  <div class="campaign-card">
+    <div class="result-pill">↑ Personalisation at scale → higher response rate</div>
+    <p>At Nomad eSIM, I was breaking into fintech BD contacts across Southeast Asia without a recognizable brand name behind me. Instead of leading with a product pitch, I created a personalized landing page for each prospective account, highlighting the specific benefits of an eSIM partnership tailored to their user base, geography, and product context.</p>
+    <p>The approach drew on market data showing how comparable fintechs in their region were already monetizing travel connectivity for their users, something prospects couldn't easily find on their own. No generic deck. No Nomad branding upfront. Just intelligence that was directly relevant to them.</p>
+    <p>The result: meaningfully higher response rates and a level of personalization that made prospects feel understood before a single call happened.</p>
+    <p>The lesson I carried forward: the most effective first move in B2B outbound is often to give something genuinely useful before you ask for anything. It repositions you from vendor to peer. The same logic applies here. This page is that move.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 30 DAY PLAN -->
+<section class="section" id="plan">
+  <div class="sec-header">
+    <div class="sec-label">05. First 30 days</div>
+    <h2 class="sec-title">What I'd actually do,<br>week by week.</h2>
+    <p class="sec-sub">Not a generic onboarding checklist. Specific actions tied to the actual product and ICP.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-phase">
+      <div class="tl-label-wrap">
+        <div class="tl-phase-name">Week 1–2</div>
+        <div class="tl-phase-period">Learn & calibrate</div>
+      </div>
+      <div class="tl-items">
+        <div class="tl-item">Shadow Naveen on sales calls to understand how the product is currently positioned and where buyers push back</div>
+        <div class="tl-item">Audit existing outreach and pipeline (if any). The goal is to identify patterns in who responded, who converted, who ghosted</div>
+        <div class="tl-item">Map the 3 sharpest objections and draft responses: "We have LinearB," "GitHub already shows us this," "My devs won't adopt another tool"</div>
+        <div class="tl-item">Build Apollo + Sales Nav account list: 200 qualified accounts. Filter for companies with active Copilot or Cursor job postings as a proxy for AI coding adoption.</div>
+      </div>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-label-wrap">
+        <div class="tl-phase-name">Week 3–4</div>
+        <div class="tl-phase-period">Launch & iterate</div>
+      </div>
+      <div class="tl-items">
+        <div class="tl-item">Launch sequence to first 60 accounts and track open rates, reply rates, positive response rate daily in CRM</div>
+        <div class="tl-item">Run 3–5 discovery calls. Note every objection, question, and moment of genuine interest. Feed back to Naveen as positioning intelligence.</div>
+        <div class="tl-item">A/B test subject lines: "AI-generated code governance at [Company]" vs "What ROI are you seeing from Copilot?" and kill the underperformer after 40 sends</div>
+        <div class="tl-item">Propose one content piece based on a real buyer insight, specifically a LinkedIn post or short benchmark Truxt can own</div>
+      </div>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-label-wrap">
+        <div class="tl-phase-name">Month 2</div>
+        <div class="tl-phase-period">Scale what works</div>
+      </div>
+      <div class="tl-items">
+        <div class="tl-item">Expand to 100+ new accounts per week using the validated sequence</div>
+        <div class="tl-item">Start working Segment C (enterprise) in parallel with longer timelines in mind</div>
+        <div class="tl-item">Build a referral ask into the discovery call flow for warm intros to peers</div>
+        <div class="tl-item">Weekly pipeline review: accounts touched, replies, demos booked, pipeline value, conversion rate per segment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT I BRING -->
+<section class="section" id="bring">
+  <div class="sec-header">
+    <div class="sec-label">06. What I bring</div>
+    <h2 class="sec-title">Hard to train.<br>Easy to verify.</h2>
+    <p class="sec-sub">Four things that show up in the work above, not just on a resume.</p>
+  </div>
+
+  <div class="brings-grid">
+    <div class="bring-card">
+      <div class="bring-icon blue">🏗️</div>
+      <div class="bring-title">Zero-to-one builder</div>
+      <div class="bring-body">At FlytBase and Nomad, I built outreach programs, partner pipelines, and BD motion from scratch without playbooks to copy from. I know what it feels like when nothing is set up yet, and how to build the plane while flying it.</div>
+    </div>
+    <div class="bring-card">
+      <div class="bring-icon purple">🌐</div>
+      <div class="bring-title">US buyer fluency</div>
+      <div class="bring-body">I've sold into US buyers from a non-US base across multiple roles. I understand the communication style, buying process, decision timelines, and how to earn credibility fast without a big brand name behind you.</div>
+    </div>
+    <div class="bring-card">
+      <div class="bring-icon cyan">⚡</div>
+      <div class="bring-title">AI tooling, actually</div>
+      <div class="bring-body">Clay for enrichment and account scoring, Claude for drafting, iteration, and building opportunity scores, Apollo for sequencing, Figma and Make for creating personalized landing pages and proposals, Blueshots for prospecting and pulling contact numbers. I've built actual workflows with these tools, not just used them once. This page is one example.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta" id="contact">
+  <div class="footer-inner">
+    <h2>The playbook<br>is already built.</h2>
+    <p>Happy to walk through any of this on a call: the prospect list, the sequence logic, or how I'd adapt it once I understand the existing pipeline.</p>
+    <div class="cta-buttons">
+      <a href="https://www.linkedin.com/in/ajinkya-vajurkar-247a2012b/" target="_blank" class="btn-secondary btn-lg">
+        LinkedIn →
+      </a>
+      <a href="tel:+918208953583" class="btn-secondary btn-lg">
+        +91 820 895 3583
+      </a>
+    </div>
+    <div class="footer-byline">
+      Ajinkya Vajurkar · ajinkya.vajurkar@gmail.com · +91 820 895 3583 · May 2026<br>
+      Built for Truxt.ai, BDM Application
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+  document.querySelectorAll('.expand-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      const arrow = btn.querySelector('.expand-arrow');
+      const isOpen = target.classList.contains('open');
+      target.classList.toggle('open', !isOpen);
+      arrow.classList.toggle('open', !isOpen);
+      btn.querySelector('.expand-label').textContent = isOpen ? 'Show details' : 'Hide details';
+    });
+  });
+
+  // Smooth number counter animation on load
+  const counters = document.querySelectorAll('.metric-value');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.style.opacity = '1'; });
+  }, { threshold: 0.1 });
+  counters.forEach(c => observer.observe(c));
+</script>
+
+</body>
+</html>
